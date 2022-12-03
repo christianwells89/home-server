@@ -1,0 +1,23 @@
+{
+    "version": "2",
+    "templates": [
+        {
+            "type": 3,
+            "name": "Heimdall",
+            "title": "Heimdall",
+            "description": "Landing page for the home server.",
+            "env": [
+                {
+                    "label": "SERVER_DOMAIN",
+                    "name": "SERVER_DOMAIN"
+                }
+            ],
+            "logo": "https://raw.githubusercontent.com/christianwells89/home-server/main/stacks/heimdall/logo.png",
+            "platform": "linux",
+            "repository": {
+                "stackfile": "stacks/heimdall/docker-compose.yml",
+                "url": "https://github.com/christianwells89/home-server"
+            }
+        }
+    ]
+}
