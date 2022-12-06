@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  kodi-db:
+    image: mariadb:10.9.4
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./data/db:/var/lib/mysql
+    ports:
+      - 33306:3306
+    container_name: kodi-db
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    name: home-server
+    external: true

@@ -1,0 +1,18 @@
+{
+    "type": 3,
+    "name": "Kodi DB",
+    "title": "Kodi DB",
+    "description": "Database for Kodi",
+    "env": [
+        {
+            "label": "MySQL Root Password",
+            "name": "MYSQL_ROOT_PASSWORD"
+        }
+    ],
+    "logo": "https://raw.githubusercontent.com/christianwells89/home-server/main/stacks/kodi-db/logo.png",
+    "platform": "linux",
+    "repository": {
+        "stackfile": "stacks/kodi-db/docker-compose.yml",
+        "url": "https://github.com/christianwells89/home-server"
+    }
+}
