@@ -1,0 +1,30 @@
+{
+    "type": 3,
+    "name": "Transmission",
+    "title": "Transmission",
+    "description": "Torrent downloader backed by an OpenVPN tunnel",
+    "env": [
+        {
+            "label": "OpenVPN Configs",
+            "name": "OPENVPN_CONFIG"
+        },
+        {
+            "label": "PIA Username",
+            "name": "OPENVPN_USERNAME"
+        },
+        {
+            "label": "PIA Password",
+            "name": "OPENVPN_PASSWORD"
+        },
+        {
+            "label": "Path to the local stack config",
+            "name": "STACK_PATH"
+        }
+    ],
+    "logo": "https://raw.githubusercontent.com/christianwells89/home-server/main/stacks/transmission/logo.png",
+    "platform": "linux",
+    "repository": {
+        "stackfile": "stacks/transmission/docker-compose.yml",
+        "url": "https://github.com/christianwells89/home-server"
+    }
+}
