@@ -21,6 +21,10 @@ services:
       - ${DATA_PARENT_PATH}/data/media/downloads:/data
       - ${DATA_PARENT_PATH}/data/transmission/config:/config
     ports:
+      - 7878:7878 # radarr
+      - 8989:8989 # sonarr
+      - 8686:8686 # lidarr
+      - 9696:9696 # prowlarr
       - 9091:9091
     restart: unless-stopped
     cap_add:
@@ -72,8 +76,6 @@ services:
     volumes:
       - ${DATA_PARENT_PATH}/data/media:/media
       - ${DATA_PARENT_PATH}/data/radarr/config:/config
-    ports:
-      - 7878:7878
     restart: unless-stopped
     network_mode: service:transmission
     depends_on:
@@ -91,8 +93,6 @@ services:
     volumes:
       - ${DATA_PARENT_PATH}/data/media:/media
       - ${DATA_PARENT_PATH}/data/sonarr/config:/config
-    ports:
-      - 8989:8989
     restart: unless-stopped
     network_mode: service:transmission
     depends_on:
@@ -110,8 +110,6 @@ services:
     volumes:
       - ${DATA_PARENT_PATH}/data/media:/media
       - ${DATA_PARENT_PATH}/data/lidarr/config:/config
-    ports:
-      - 8686:8686
     restart: unless-stopped
     network_mode: service:transmission
     depends_on:
@@ -128,8 +126,6 @@ services:
       - TZ=${TZ}
     volumes:
       - ${DATA_PARENT_PATH}/data/prowlarr/config:/config
-    ports:
-      - 9696:9696
     restart: unless-stopped
     network_mode: service:transmission
     depends_on:
