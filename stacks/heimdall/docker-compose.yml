@@ -7,7 +7,9 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - ./data/config:/config
+      - ${DATA_PARENT_PATH}/data/config:/config
+    ports:
+      - 8888:80
     container_name: heimdall
     restart: always
     security_opt:

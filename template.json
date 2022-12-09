@@ -3,10 +3,14 @@
     "templates": [
         {
             "type": 3,
-            "name": "Transmission",
-            "title": "Transmission",
-            "description": "Torrent downloader backed by an OpenVPN tunnel",
+            "name": "Arr",
+            "title": "Arr",
+            "description": "Complete media downloading and managing solution",
             "env": [
+                {
+                    "label": "Path to the data location's parent directory",
+                    "name": "DATA_PARENT_PATH"
+                },
                 {
                     "label": "OpenVPN Configs",
                     "name": "OPENVPN_CONFIG"
@@ -20,14 +24,20 @@
                     "name": "OPENVPN_PASSWORD"
                 },
                 {
-                    "label": "Path to the local stack config",
-                    "name": "STACK_PATH"
+                    "label": "Server Domain",
+                    "name": "SERVER_DOMAIN",
+                    "default": "home.arpa"
+                },
+                {
+                    "label": "Local Timezone",
+                    "name": "TZ",
+                    "default": "US/New_York"
                 }
             ],
-            "logo": "https://raw.githubusercontent.com/christianwells89/home-server/main/stacks/transmission/logo.png",
+            "logo": "https://raw.githubusercontent.com/christianwells89/home-server/main/stacks/arr/logo.png",
             "platform": "linux",
             "repository": {
-                "stackfile": "stacks/transmission/docker-compose.yml",
+                "stackfile": "stacks/arr/docker-compose.yml",
                 "url": "https://github.com/christianwells89/home-server"
             }
         },
@@ -50,14 +60,19 @@
             }
         },
         {
-            "type": 3,
+            "type": 1,
             "name": "Heimdall",
             "title": "Heimdall",
             "description": "Landing page for the home server.",
             "env": [
                 {
+                    "label": "Path to the data location's parent directory",
+                    "name": "DATA_PARENT_PATH"
+                },
+                {
                     "label": "Server Domain",
-                    "name": "SERVER_DOMAIN"
+                    "name": "SERVER_DOMAIN",
+                    "default": "home.arpa"
                 }
             ],
             "logo": "https://raw.githubusercontent.com/christianwells89/home-server/main/stacks/heimdall/logo.png",
