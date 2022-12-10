@@ -9,11 +9,11 @@ services:
     ports:
       - '53:53/tcp' # |
       - '53:53/udp' # | For DNS
-      # - '80:80/tcp'   # |
+      - '8088:80/tcp' # For the web admin
       # - '443:443/tcp' # |
       # - '443:443/udp' # | For potential DNS-over_HTTPS
       # - '853:853/tcp' # For potential DNS-over-TLS
-      - '3000:3000/tcp'
+      - '3000:3000/tcp' # For the initial setup
     container_name: adguard
     restart: unless-stopped
     security_opt:
@@ -25,7 +25,7 @@ services:
       traefik.enable: true
       traefik.http.routers.adguard.rule: Host(`adguard.${SERVER_DOMAIN}`)
       traefik.http.routers.adguard.entrypoints: websecure
-      traefik.http.services.adguard.loadbalancer.server.port: 3000
+      traefik.http.services.adguard.loadbalancer.server.port: 80
 
 networks:
   proxy:
