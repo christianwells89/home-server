@@ -3,6 +3,29 @@
     "templates": [
         {
             "type": 3,
+            "name": "AdGuard",
+            "title": "AdGuard",
+            "description": "DNS-level ad-blocking",
+            "env": [
+                {
+                    "label": "Path to the data location's parent directory",
+                    "name": "DATA_PARENT_PATH"
+                },
+                {
+                    "label": "Server Domain",
+                    "name": "SERVER_DOMAIN",
+                    "default": "home.arpa"
+                }
+            ],
+            "logo": "https://raw.githubusercontent.com/christianwells89/home-server/main/stacks/adguard/logo.png",
+            "platform": "linux",
+            "repository": {
+                "stackfile": "stacks/adguard/docker-compose.yml",
+                "url": "https://github.com/christianwells89/home-server"
+            }
+        },
+        {
+            "type": 3,
             "name": "Arr",
             "title": "Arr",
             "description": "Complete media downloading and managing solution",
@@ -60,7 +83,7 @@
             }
         },
         {
-            "type": 1,
+            "type": 3,
             "name": "Heimdall",
             "title": "Heimdall",
             "description": "Landing page for the home server.",

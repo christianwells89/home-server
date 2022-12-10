@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  adguard:
+    image: adguard/adguardhome:v0.107.20
+    volumes:
+      - ${DATA_PARENT_PATH}/data/work:/opt/adguardhome/work
+      - ${DATA_PARENT_PATH}/data/conf:/opt/adguardhome/conf
+    ports:
+      - '53:53/tcp' # |
+      - '53:53/udp' # | For DNS
+      # - '80:80/tcp'   # |
+      # - '443:443/tcp' # |
+      # - '443:443/udp' # | For potential DNS-over_HTTPS
+      # - '853:853/tcp' # For potential DNS-over-TLS
+      - '3000:3000/tcp'
+    container_name: adguard
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    labels:
+      my.zone: home-server
+      traefik.enable: true
+      traefik.http.routers.adguard.rule: Host(`adguard.${SERVER_DOMAIN}`)
+      traefik.http.routers.adguard.entrypoints: websecure
+      traefik.http.services.adguard.loadbalancer.server.port: 3000
+
+networks:
+  proxy:
+    name: home-server
+    external: true

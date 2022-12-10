@@ -1,8 +1,8 @@
 {
     "type": 3,
-    "name": "Heimdall",
-    "title": "Heimdall",
-    "description": "Landing page for the home server.",
+    "name": "AdGuard",
+    "title": "AdGuard",
+    "description": "DNS-level ad-blocking",
     "env": [
         {
             "label": "Path to the data location's parent directory",
@@ -14,10 +14,10 @@
             "default": "home.arpa"
         }
     ],
-    "logo": "https://raw.githubusercontent.com/christianwells89/home-server/main/stacks/heimdall/logo.png",
+    "logo": "https://raw.githubusercontent.com/christianwells89/home-server/main/stacks/adguard/logo.png",
     "platform": "linux",
     "repository": {
-        "stackfile": "stacks/heimdall/docker-compose.yml",
+        "stackfile": "stacks/adguard/docker-compose.yml",
         "url": "https://github.com/christianwells89/home-server"
     }
 }
