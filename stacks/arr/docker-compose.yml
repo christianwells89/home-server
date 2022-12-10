@@ -18,7 +18,9 @@ services:
       - TZ=${TZ}
       - TRANSMISSION_SCRAPE_PAUSED_TORRENTS_ENABLED=false
     volumes:
-      - ${DATA_PARENT_PATH}/data/media/downloads:/data
+      # This doesn't need the whole media folder, but it reports its download locations to the others and they
+      # interpret as if it's the same in their container so it's easier if they all just match
+      - ${DATA_PARENT_PATH}/data/media:/media
       - ${DATA_PARENT_PATH}/data/transmission/config:/config
     ports:
       - 7878:7878 # radarr
