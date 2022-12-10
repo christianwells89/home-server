@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  adguard:
+    image: traefik:v2.9.6
+    container_name: traefik
+    command:
+      - --log.level=DEBUG
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --api.dashboard=true
+      - --providers.docker.constraints=Label(`my.zone`, `home-server`)
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    labels:
+      my.zone: home-server
+      traefik.enable: true
+      traefik.http.routers.traefik.entrypoints: web
+      # traefik.http.routers.traefik.tls: true
+      # traefik.http.routers.traefik.tls.domains[0].main: ${SERVER_DOMAIN}
+      # traefik.http.routers.traefik.tls.domains[0].sans: "*.${SERVER_DOMAIN}"
+      traefik.http.routers.dashboard.rule: Host(`traefik.${SERVER_DOMAIN}`)
+      traefik.http.routers.dashboard.service: api@internal
+      traefik.http.routers.traefik.service: api@internal
+
+  whoami:
+    image: containous/whoami:v1.5.0
+    container_name: whoami
+    restart: unless-stopped
+    networks:
+      - proxy
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      my.zone: home-server
+      traefik.enable: true
+      traefik.http.routers.whoami.rule: Host(`whoami.${SERVER_DOMAIN}`)
+      traefik.http.routers.whoami.entrypoints: web
+
+networks:
+  proxy:
+    name: home-server
+    external: true
