@@ -68,7 +68,7 @@
             "type": 3,
             "name": "File Browser",
             "title": "File Browser",
-            "description": "DNS-level ad-blocking",
+            "description": "Browse files from a web browser",
             "env": [
                 {
                     "label": "Data Parent Path",
