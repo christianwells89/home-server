@@ -6,9 +6,8 @@ services:
     container_name: komga
     volumes:
       - /data/komga/config:/config
-      # The comics folder will be a symlink inside here. It's not passed in directly as a volume because if the mount
-      # fails it will seem to komga like it got deleted and it will wipe the db. This will just give an error until it returns
-      - /data/komga/data:/data
+      - /data/komga/comics:/data/comics
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 8288:8080
     user: 1000:1000
