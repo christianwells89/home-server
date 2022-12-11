@@ -5,7 +5,9 @@ services:
     image: filebrowser/filebrowser:v2.23.0
     container_name: filebrowser
     volumes:
-      - ${DATA_PARENT_PATH}/data/files:/srv
+        # There are problems with symlinks to SMB shares right now in filebrowser. Just point to /mnt for now
+      # - ${DATA_PARENT_PATH}/data/files:/srv
+      - /mnt:/srv
       - type: bind
         source: ${DATA_PARENT_PATH}/data/filebrowser.db
         target: /database.db
