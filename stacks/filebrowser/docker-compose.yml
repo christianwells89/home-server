@@ -6,8 +6,12 @@ services:
     container_name: filebrowser
     volumes:
       - ${DATA_PARENT_PATH}/data/files:/srv
-      - ${DATA_PARENT_PATH}/data/filebrowser.db:/database.db
-      - ${DATA_PARENT_PATH}/data/.filebrowser.json:/.filebrowser.json
+      - type: bind
+        source: ${DATA_PARENT_PATH}/data/filebrowser.db
+        target: /database.db
+      - type: bind
+        source: ${DATA_PARENT_PATH}/data/.filebrowser.json
+        target: /.filebrowser.json
     ports:
       - 8188:80
     user: 1000:1000
