@@ -32,6 +32,11 @@ services:
       traefik.http.routers.dashboard.rule: Host(`traefik.${SERVER_DOMAIN}`)
       traefik.http.routers.dashboard.service: api@internal
       traefik.http.routers.traefik.service: api@internal
+      # freenas - TODO - doesn't work right now, just endlessly loads
+      # traefik.http.routers.freenas.rule: Host(`freenas.${SERVER_DOMAIN}`)
+      # traefik.http.routers.freenas.entrypoints: web
+      # traefik.http.routers.freenas.service: freenas
+      # traefik.http.services.freenas.loadbalancer.server.url: http://192.168.86.100
 
   whoami:
     image: containous/whoami:v1.5.0

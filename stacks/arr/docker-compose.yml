@@ -9,8 +9,8 @@ services:
       - OPENVPN_CONFIG=${OPENVPN_CONFIG}
       - OPENVPN_USERNAME=${OPENVPN_USERNAME}
       - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
-      # won't be necessary when traefik is up and running, this is only to allow
-      # a hole in the VPN for access to the web ui
+      # Not entirely necessary with traefik exposing it, but keeping in case that goes does down
+      # This is only to allow a hole in the VPN for these IP addresses to access the web ui
       - LOCAL_NETWORK=192.168.86.0/24
       - TRANSMISSION_WEB_UI=flood-for-transmission
       - PUID=1000
@@ -40,31 +40,31 @@ services:
     security_opt:
       - no-new-privileges:true
     labels:
-      my.zone: zone1
+      my.zone: home-server
       traefik.enable: true
 
       traefik.http.routers.transmission.rule: Host(`transmission.${SERVER_DOMAIN}`)
-      traefik.http.routers.transmission.entrypoints: websecure
+      traefik.http.routers.transmission.entrypoints: web
       traefik.http.routers.transmission.service: transmission
       traefik.http.services.transmission.loadbalancer.server.port: 9091
 
       traefik.http.routers.radarr.rule: Host(`radarr.${SERVER_DOMAIN}`)
-      traefik.http.routers.radarr.entrypoints: websecure
+      traefik.http.routers.radarr.entrypoints: web
       traefik.http.routers.radarr.service: radarr
       traefik.http.services.radarr.loadbalancer.server.port: 7878
 
       traefik.http.routers.sonarr.rule: Host(`sonarr.${SERVER_DOMAIN}`)
-      traefik.http.routers.sonarr.entrypoints: websecure
+      traefik.http.routers.sonarr.entrypoints: web
       traefik.http.routers.sonarr.service: sonarr
       traefik.http.services.sonarr.loadbalancer.server.port: 8989
 
       traefik.http.routers.lidarr.rule: Host(`lidarr.${SERVER_DOMAIN}`)
-      traefik.http.routers.lidarr.entrypoints: websecure
+      traefik.http.routers.lidarr.entrypoints: web
       traefik.http.routers.lidarr.service: lidarr
       traefik.http.services.lidarr.loadbalancer.server.port: 8686
 
       traefik.http.routers.prowlarr.rule: Host(`prowlarr.${SERVER_DOMAIN}`)
-      traefik.http.routers.prowlarr.entrypoints: websecure
+      traefik.http.routers.prowlarr.entrypoints: web
       traefik.http.routers.prowlarr.service: prowlarr
       traefik.http.services.prowlarr.loadbalancer.server.port: 9696
 
