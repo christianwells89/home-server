@@ -71,11 +71,6 @@
             "description": "Comics library and viewer",
             "env": [
                 {
-                    "label": "Data Parent Path",
-                    "description": "Path to the data location's parent directory",
-                    "name": "DATA_PARENT_PATH"
-                },
-                {
                     "label": "Server Domain",
                     "name": "SERVER_DOMAIN",
                     "default": "home.arpa"
