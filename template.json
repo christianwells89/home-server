@@ -66,6 +66,30 @@
         },
         {
             "type": 3,
+            "name": "Komga",
+            "title": "Komga",
+            "description": "Comics library and viewer",
+            "env": [
+                {
+                    "label": "Data Parent Path",
+                    "description": "Path to the data location's parent directory",
+                    "name": "DATA_PARENT_PATH"
+                },
+                {
+                    "label": "Server Domain",
+                    "name": "SERVER_DOMAIN",
+                    "default": "home.arpa"
+                }
+            ],
+            "logo": "https://raw.githubusercontent.com/christianwells89/home-server/main/stacks/komga/logo.png",
+            "platform": "linux",
+            "repository": {
+                "stackfile": "stacks/komga/docker-compose.yml",
+                "url": "https://github.com/christianwells89/home-server"
+            }
+        },
+        {
+            "type": 3,
             "name": "File Browser",
             "title": "File Browser",
             "description": "Browse files from a web browser",
