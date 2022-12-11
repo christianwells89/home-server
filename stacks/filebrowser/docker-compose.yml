@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:v2.23.0
+    container_name: filebrowser
+    volumes:
+      - ${DATA_PARENT_PATH}/data/files:/srv
+      - ${DATA_PARENT_PATH}/data/filebrowser.db:/database.db
+      - ${DATA_PARENT_PATH}/data/.filebrowser.json:/.filebrowser.json
+    ports:
+      - 8188:80
+    user: 1000:1000
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    labels:
+      my.zone: home-server
+      traefik.enable: true
+      traefik.http.routers.filebrowser.rule: Host(`files.${SERVER_DOMAIN}`)
+      traefik.http.routers.filebrowser.entrypoints: web
+      traefik.http.services.filebrowser.loadbalancer.server.port: 80
+
+networks:
+  proxy:
+    name: home-server
+    external: true
