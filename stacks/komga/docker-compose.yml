@@ -22,7 +22,7 @@ services:
       traefik.enable: true
       traefik.http.routers.komga.rule: Host(`komga.${SERVER_DOMAIN}`)
       traefik.http.routers.komga.entrypoints: web
-      traefik.http.services.komga.loadbalancer.server.port: 80
+      traefik.http.services.komga.loadbalancer.server.port: 8080
 
 networks:
   proxy:
