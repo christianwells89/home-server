@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  homepage:
+    image: ghcr.io/benphelps/homepage:v0.5.4
+    container_name: homepage
+    volumes:
+      - /data/homepage/config:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 3001:3000
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    labels:
+      my.zone: home-server
+      traefik.enable: true
+      traefik.http.routers.homepage.rule: Host(`dash.${SERVER_DOMAIN}`) || Host(`${SERVER_DOMAIN}`)
+      traefik.http.routers.homepage.entrypoints: web
+      traefik.http.services.homepage.loadbalancer.server.port: 3000
+
+networks:
+  proxy:
+    name: home-server
+    external: true
