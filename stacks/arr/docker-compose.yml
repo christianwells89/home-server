@@ -20,12 +20,13 @@ services:
     volumes:
       # This doesn't need the whole media folder, but it reports its download locations to the others and they
       # interpret as if it's the same in their container so it's easier if they all just match
-      - ${DATA_PARENT_PATH}/data/media:/media
-      - ${DATA_PARENT_PATH}/data/transmission/config:/config
+      - /data/arr/media:/data
+      - /data/arr/transmission/config:/config
     ports:
       - 7878:7878 # radarr
       - 8989:8989 # sonarr
       - 8686:8686 # lidarr
+      - 8090:8090 # mylar
       - 9696:9696 # prowlarr
       - 9091:9091
     restart: unless-stopped
@@ -63,6 +64,11 @@ services:
       traefik.http.routers.lidarr.service: lidarr
       traefik.http.services.lidarr.loadbalancer.server.port: 8686
 
+      traefik.http.routers.mylar.rule: Host(`mylar.${SERVER_DOMAIN}`)
+      traefik.http.routers.mylar.entrypoints: web
+      traefik.http.routers.mylar.service: mylar
+      traefik.http.services.mylar.loadbalancer.server.port: 8090
+
       traefik.http.routers.prowlarr.rule: Host(`prowlarr.${SERVER_DOMAIN}`)
       traefik.http.routers.prowlarr.entrypoints: web
       traefik.http.routers.prowlarr.service: prowlarr
@@ -76,8 +82,8 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - ${DATA_PARENT_PATH}/data/media:/media
-      - ${DATA_PARENT_PATH}/data/radarr/config:/config
+      - /data/arr/media:/data
+      - /data/arr/radarr/config:/config
     restart: unless-stopped
     network_mode: service:transmission
     depends_on:
@@ -93,8 +99,8 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - ${DATA_PARENT_PATH}/data/media:/media
-      - ${DATA_PARENT_PATH}/data/sonarr/config:/config
+      - /data/arr/media:/data
+      - /data/arr/sonarr/config:/config
     restart: unless-stopped
     network_mode: service:transmission
     depends_on:
@@ -110,8 +116,25 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - ${DATA_PARENT_PATH}/data/media:/media
-      - ${DATA_PARENT_PATH}/data/lidarr/config:/config
+      - /data/arr/media:/data
+      - /data/arr/lidarr/config:/config
+    restart: unless-stopped
+    network_mode: service:transmission
+    depends_on:
+      - transmission
+    security_opt:
+      - no-new-privileges:true
+
+  mylar:
+    image: lscr.io/linuxserver/mylar3:0.7.0
+    container_name: mylar
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+     - /data/arr/mylar/config:/config
+     - /data/arr/media/Comics:/comics
+     - /data/arr/media/downloads/completed/comics:/downloads
     restart: unless-stopped
     network_mode: service:transmission
     depends_on:
@@ -127,7 +150,7 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - ${DATA_PARENT_PATH}/data/prowlarr/config:/config
+      - /data/arr/prowlarr/config:/config
     restart: unless-stopped
     network_mode: service:transmission
     depends_on:
