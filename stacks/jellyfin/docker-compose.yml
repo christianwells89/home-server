@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:10.8.8
+    container_name: jellyfin
+    environment:
+      - JELLYFIN_PublishedServerUrl=http://jellyfin.${SERVER_DOMAIN}
+    volumes:
+      - /data/jellyfin/config:/config
+      - /data/jellyfin/cache:/cache
+      - /data/jellyfin/media:/media
+    ports:
+      - 8096:8096
+    user: 1000:1000
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    labels:
+      my.zone: home-server
+      traefik.enable: true
+      traefik.http.routers.jellyfin.rule: Host(`jellyfin.${SERVER_DOMAIN}`)
+      traefik.http.routers.jellyfin.entrypoints: web
+      traefik.http.services.jellyfin.loadbalancer.server.port: 8096
+
+networks:
+  proxy:
+    name: home-server
+    external: true

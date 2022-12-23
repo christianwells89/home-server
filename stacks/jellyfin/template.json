@@ -1,0 +1,19 @@
+{
+    "type": 3,
+    "name": "Jellyfin",
+    "title": "Jellyfin",
+    "description": "Media viewer",
+    "env": [
+        {
+            "label": "Server Domain",
+            "name": "SERVER_DOMAIN",
+            "default": "home.arpa"
+        }
+    ],
+    "logo": "https://raw.githubusercontent.com/christianwells89/home-server/main/stacks/jellyfin/logo.svg",
+    "platform": "linux",
+    "repository": {
+        "stackfile": "stacks/jellyfin/docker-compose.yml",
+        "url": "https://github.com/christianwells89/home-server"
+    }
+}
